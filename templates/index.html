@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AI Workflow Automation Tool</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+    <div class="container">
+        <h1>AI Workflow Automation Tool</h1>
+        <p class="subtitle">Run AI-powered workflows for summarization, email drafting, and action item extraction.</p>
+
+        <form method="POST" class="workflow-form">
+            <label for="workflow">Choose a workflow</label>
+            <select name="workflow" id="workflow" required>
+                <option value="" {% if selected_workflow == "" %}selected{% endif %}>-- Select --</option>
+                <option value="summarize" {% if selected_workflow == "summarize" %}selected{% endif %}>Summarize Text</option>
+                <option value="email" {% if selected_workflow == "email" %}selected{% endif %}>Draft Email Reply</option>
+                <option value="actions" {% if selected_workflow == "actions" %}selected{% endif %}>Extract Action Items</option>
+            </select>
+
+            <label for="user_input">Enter your text</label>
+            <textarea name="user_input" id="user_input" rows="10" placeholder="Paste your text here..." required>{{ user_input }}</textarea>
+
+            <div class="button-row">
+                <button type="submit">Run Workflow</button>
+            </div>
+        </form>
+
+        <form method="POST" action="/clear" class="clear-form">
+            <button type="submit" class="clear-btn">Clear</button>
+        </form>
+
+        {% if result %}
+        <div class="result-box">
+            <h2>Result</h2>
+            <pre>{{ result }}</pre>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
